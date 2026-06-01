@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toddler Phonics - Fun & Interactive Alphabet Learning</title>
+    <meta name="description" content="Help your toddler learn the alphabet and phonics with interactive flip cards, clear voice audio, animal lists, and customizable parent settings.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF5A5F;
+            --primary-hover: #E04E52;
+            --secondary: #4A90E2;
+            --background: #F9FAFC;
+            --text-dark: #2C3E50;
+            --text-muted: #5C6B73;
+            --white: #FFFFFF;
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .brand {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Header */
+        header {
+            padding: 1.5rem 0;
+            background: rgba(249, 250, 252, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .brand-dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+        }
+
+        nav {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 4rem;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-badge {
+            background-color: rgba(255, 90, 95, 0.1);
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: #1A2530;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(255, 90, 95, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-dark);
+            border: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-dark);
+            transform: translateY(-2px);
+        }
+
+        .hero-image {
+            flex: 0.9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Mockup graphic */
+        .mockup-container {
+            background: linear-gradient(135deg, #FFEBEB 0%, #E8F0FE 100%);
+            border-radius: 40px;
+            padding: 2.5rem;
+            width: 320px;
+            height: 580px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border: 8px solid #2C3E50;
+        }
+
+        .mockup-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .mockup-card-container {
+            background: var(--white);
+            border-radius: 24px;
+            flex: 1;
+            margin: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+            border: 2px solid #FF8A80;
+        }
+
+        .mockup-letter {
+            font-family: 'Outfit', sans-serif;
+            font-size: 4rem;
+            color: #C62828;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            animation: bounce 3s infinite ease-in-out;
+        }
+
+        .mockup-question {
+            width: 140px;
+            height: 140px;
+            border-radius: 20px;
+            border: 3px dashed #C62828;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #C62828;
+            background: #FFF8F8;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mockup-question:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .mockup-word {
+            font-size: 1.5rem;
+            color: #C62828;
+            font-weight: 700;
+            margin-top: 1rem;
+        }
+
+        .mockup-nav {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .mockup-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #C62828;
+            opacity: 0.3;
+        }
+
+        .mockup-dot.active {
+            opacity: 1;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+            background-color: var(--white);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 4rem auto;
+        }
+
+        .section-header h2 {
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+            color: #1A2530;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--background);
+            padding: 2.5rem;
+            border-radius: 24px;
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 16px;
+            background-color: rgba(74, 144, 226, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: #1A2530;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Support Section */
+        .support {
+            padding: 6rem 0;
+        }
+
+        .support-card {
+            background-color: var(--white);
+            border-radius: 32px;
+            padding: 4rem;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .support-info {
+            flex: 1;
+        }
+
+        .support-info h2 {
+            font-size: 2.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .support-info p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .support-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .support-method {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 500;
+        }
+
+        .support-method-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 90, 95, 0.1);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .support-method a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        .support-method a:hover {
+            text-decoration: underline;
+        }
+
+        /* Privacy Policy Section */
+        .privacy {
+            padding: 6rem 0;
+            background-color: var(--white);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .privacy h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .privacy-box {
+            background-color: var(--background);
+            padding: 2.5rem;
+            border-radius: 20px;
+            font-size: 0.95rem;
+            color: #34495e;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .privacy-box h3 {
+            margin: 1.5rem 0 0.5rem 0;
+            font-size: 1.15rem;
+            color: var(--text-dark);
+        }
+
+        .privacy-box h3:first-of-type {
+            margin-top: 0;
+        }
+
+        .privacy-box p {
+            margin-bottom: 1rem;
+        }
+
+        .privacy-box ul {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+        }
+
+        .privacy-box li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 3rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2.75rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-image {
+                margin-top: 2rem;
+            }
+
+            .support-card {
+                flex-direction: column;
+                padding: 2rem;
+                text-align: center;
+            }
+
+            .support-methods {
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="#" class="brand">
+                Toddler Phonics
+                <div class="brand-dot"></div>
+            </a>
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#support">Support</a>
+                <a href="#privacy">Privacy</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="hero">
+            <div class="hero-content">
+                <span class="hero-badge">Fun, Clean & Ad-Free</span>
+                <h1>Help Your Child <span>Learn To Read</span></h1>
+                <p>An interactive, educational alphabet app built specifically for toddlers and preschoolers. Teach letter recognition and phonics with colorful flashcards, clear audio voiceovers, and playful guessing games.</p>
+                <div class="hero-buttons">
+                    <a href="#features" class="btn btn-primary">Learn Features</a>
+                    <a href="#support" class="btn btn-secondary">Get Support</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="mockup-container">
+                    <div class="mockup-header">
+                        <span>Toddler Phonics</span>
+                        <span>100% Kid Friendly</span>
+                    </div>
+                    <div class="mockup-card-container">
+                        <div class="mockup-letter">Aa</div>
+                        <div class="mockup-question">?</div>
+                        <div class="mockup-word">Alligator</div>
+                    </div>
+                    <div class="mockup-nav">
+                        <div class="mockup-dot active"></div>
+                        <div class="mockup-dot"></div>
+                        <div class="mockup-dot"></div>
+                        <div class="mockup-dot"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Features Designed For Early Learners</h2>
+                <p>Toddler Phonics strips away the noise and focus-stealers, leaving a beautifully clean, highly educational interface for toddlers.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon" style="background-color: rgba(255, 90, 95, 0.1); color: var(--primary);">🔤</div>
+                    <h3>Interactive Guessing Game</h3>
+                    <p>Encourage your child's natural curiosity. Hide letters or images behind interactive cards that flip to reveal adorable illustrations like animals and objects.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background-color: rgba(74, 144, 226, 0.1); color: var(--secondary);">🔊</div>
+                    <h3>Clear Audio Voiceovers</h3>
+                    <p>Every letter name, word, and phonics sound has clear voice pronunciations built-in. Just tap to listen, repeat, and master pronunciation.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background-color: rgba(46, 125, 50, 0.1); color: #2E7D32;">🛠️</div>
+                    <h3>Parent Customizations</h3>
+                    <p>Tailor the learning deck to your child. Omit specific letters they have already mastered, or randomize the sequence to test their active recall.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon" style="background-color: rgba(106, 27, 154, 0.1); color: #6A1B9A;">🌙</div>
+                    <h3>Gentle Dark Mode</h3>
+                    <p>Perfect for winding down in the evening. Keep screens soft on sensitive eyes with a beautiful dark interface.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <section id="support" class="support">
+            <div class="support-card">
+                <div class="support-info">
+                    <h2>We're Here to Help</h2>
+                    <p>Have questions, run into issues, or want to suggest improvements? We'd love to hear from you. Reach out through our support channels below.</p>
+                    <div class="support-methods">
+                        <div class="support-method">
+                            <div class="support-method-icon">✉</div>
+                            <span>Email Support: <a href="mailto:support@matthuberty.com">support@matthuberty.com</a></span>
+                        </div>
+                        <div class="support-method">
+                            <div class="support-method-icon">⌨</div>
+                            <span>GitHub Issues: <a href="https://github.com/matthuberty/toddler-phonics/issues" target="_blank">View / Report Issues</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section id="privacy" class="privacy">
+        <div class="container">
+            <h2>Privacy Policy</h2>
+            <div class="privacy-box">
+                <h3>Last Updated: June 1, 2026</h3>
+                <p>Your privacy and your child's safety are our highest priorities. This privacy policy describes how the Toddler Phonics application handles data.</p>
+                
+                <h3>1. No Personal Data Collected</h3>
+                <p>We do not collect, store, share, or transmit any personal information, location data, or device identifiers. Toddler Phonics is fully self-contained and does not require you to create an account, register, or provide any email addresses or other private details.</p>
+                
+                <h3>2. No Analytics and Offline Usage</h3>
+                <p>The app does not track usage patterns, statistics, or metrics. All customizations (such as dark mode preference, word list selection, and omitted letters list) are stored locally on your device via AsyncStorage and are never transmitted to any servers.</p>
+                
+                <h3>3. No Ads or In-App Purchases</h3>
+                <p>Toddler Phonics is entirely ad-free and contains no third-party software development kits (SDKs) or tracking scripts. There are no hidden in-app purchases or subscription options.</p>
+
+                <h3>4. Kid-Friendly Compliance</h3>
+                <p>Our app is fully compliant with the Children's Online Privacy Protection Act (COPPA) and international guidelines for children's apps. We collect zero data from children.</p>
+
+                <h3>5. Contact Us</h3>
+                <p>If you have any questions or feedback regarding this privacy policy, please contact us at <a href="mailto:support@matthuberty.com">support@matthuberty.com</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Matt Huberty. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
